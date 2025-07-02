@@ -1,0 +1,27 @@
+---
+title: Transport
+---
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+
+Once a provider service is discovered by an airborne client, a WebSocket connection is maintained between the two to exchange data link messages. The provider client must expose two additional WebSocket endpoints, `/cpdlc` and `/acars`, for CPDLC and ACARS message exchange, respectively.
+
+<Tabs>
+    <TabItem label="CPDLC">
+        ```http
+        GET /cpdlc HTTP/1.1
+        Upgrade: websocket
+        Connection: Upgrade
+        Sec-WebSocket-Protocol: fsdlp
+        ```
+    </TabItem>
+    <TabItem label="ACARS">
+        ```http
+        GET /acars HTTP/1.1
+        Upgrade: websocket
+        Connection: Upgrade
+        Sec-WebSocket-Protocol: fsdlp
+        ```
+    </TabItem>
+</Tabs>

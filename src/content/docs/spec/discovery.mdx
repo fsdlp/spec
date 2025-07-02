@@ -1,0 +1,56 @@
+---
+title: Service Discovery
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+
+The key difference between FSDLP and prior solutions is its decentralized nature. Rather than a single entity federating communications between aircraft, air traffic units, and virtual airline operations centers, the responsibility is shared between all of the aforementioned users.
+
+To facilitate this, a method for service discovery is necessary, as an airborne client must know which provider clients are available and what capabilities they posess. A pre-determined port range of `60860—60867` is used to make port scanning easier on airborne clients.
+
+<Aside type="caution">
+    The port range above only allows for **up to eight clients** on a single machine. We believe this to be a sufficient quantity, as there are typically at most two at any given moment: a network and a virtual airline.
+</Aside>
+
+
+## Provider Client Identification
+
+Provider clients shall bind to local address `127.0.0.1` on any port in the range `60860—60867`, inclusive. Once bound, clients must satisfy the following exchange in order to be discoverable by airborne clients:
+
+<Steps>
+1. Provider client receives HTTP `GET` request on `/id`:
+
+    ```http
+    GET /id HTTP/1.1
+    ```
+
+2. Provider client responds with the following JSON payload:
+
+    ```json """" "[]"
+    {
+        "protocol": "fsdlp",
+        "version": 1,
+        "provider": {
+            "name": "",
+            "type": "",
+            "features": []
+        }
+    }
+    ```
+
+    The `provider.name` field shall be populated with a brief, identifiable name of the network or virtual airline. This information may be shown in virtual cockpits when prompting pilots to establush a data link connection.
+
+    The `provider.type` field shall be populated with either `network` or `other` to indicate the kind of provider client. This determines the prioritization of clients in cases where multiple clients support a particular feature, as networks will take priority in such cases.
+
+    The `provider.features` field shall be populated with a list of all features supported by the provider client. Refer to the [Features](/features) page for a list of features and how they should be represented in this field.
+</Steps>
+
+<Aside>
+    While not necessarily a focus of this protocol, this method does allow provider clients to discover other providers and alter their logic in reponse to the presence or absence of other clients.
+</Aside>
+
+
+## Airborne Client Identification
+
+While there are no requirements for an airborne client to be discoverable, as they are are always the first to initiate a data link connection, there are requirements on how an airborne client dicovers available provider clients.

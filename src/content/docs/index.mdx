@@ -1,0 +1,40 @@
+---
+title: Introduction
+---
+import { Image } from 'astro:assets';
+import bannerDark from '../../assets/banner-dark.svg';
+import bannerLight from '../../assets/banner-light.svg';
+
+
+<Image
+    class="light:sl-hidden mt-0"
+    src={bannerDark}
+    alt="FSDLP Banner"
+    loading="eager"
+    width="800"
+/>
+<Image
+    class="dark:sl-hidden mt-0"
+    src={bannerLight}
+    alt="FSDLP Banner"
+    loading="eager"
+    width="800"
+/>
+
+This website provides the technical specification for the **Flight Simulation Data Link Protocol (FSDLP)**. FSDLP is designed to enable first-class, realistic text-based communications between pilots, controllers, and virtual airlines when engaging in networked flight simulation activities.
+
+Historically, this niche has been filled by third-party software operating independently of flight simulation networks. However, the increased complexity of virtual aircraft and the general rise in popularity of flight simulation has demanded a solution with improved availability, realism, and ease of implementation.
+
+The idea behind FSDLP is to decentralize the role of exchanging messages with virtual aircraft. To ensure compatibility with existing authentication and data exchange schemes the protocol remains network-agnostic, and only requires that a common interface is made available to aircraft. It is entirely up to networks, virtual airlines, and any other providers to determine how messages are uplinked to and downlinked from pilots.
+
+## Documents Referenced
+
+The following documents have been referenced when designing the specification. Access to these documents may or may not be limited.
+
+- ICAO Doc 10037, Global Operational Data Link (GOLD) Manual, First Edition, 2017
+- EUROCONTROL Specification on Data Link Services, Edition 2.1, 2009
+- DCIT End-to-End Procedures for CPDLC Operations in the US NAS, Version 2.2, 2023
+
+## Conventions Used
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" on this website are to be interpreted as described in [RFC 2119](https://datatracker.ietf.org/doc/rfc2119/).

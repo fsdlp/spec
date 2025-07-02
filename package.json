@@ -1,0 +1,32 @@
+{
+    "name": "fsdlp-spec",
+    "type": "module",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "astro dev",
+        "start": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "astro": "astro",
+        "lint": "biome check",
+        "lint:fix": "biome check --fix --unsafe"
+    },
+    "dependencies": {
+        "@astrojs/starlight": "^0.34.4",
+        "@astrojs/starlight-tailwind": "4.0.1",
+        "@fontsource/hind": "5.2.6",
+        "@fontsource/ibm-plex-mono": "5.2.6",
+        "@fontsource/poppins": "5.2.6",
+        "@tailwindcss/vite": "4.1.11",
+        "astro": "^5.6.1",
+        "astro-mermaid": "1.0.3",
+        "mermaid": "11.7.0",
+        "rehype-external-links": "3.0.0",
+        "sharp": "^0.34.2",
+        "starlight-links-validator": "0.17.0",
+        "tailwindcss": "4.1.11"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "2.0.6"
+    }
+}
