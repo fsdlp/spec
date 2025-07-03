@@ -6,6 +6,8 @@ import rehypeExternalLinks from "rehype-external-links";
 import starlightLinksValidator from "starlight-links-validator";
 
 export default defineConfig({
+    site: "https://fsdlp.github.io",
+    base: "spec",
     integrations: [
         mermaid(),
         starlight({
