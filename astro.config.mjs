@@ -25,22 +25,22 @@ export default defineConfig({
                 {
                     label: "Specification",
                     items: [
-                        "spec/discovery",
-                        "spec/transport",
+                        "discovery",
+                        "transport",
                         {
                             label: "CPDLC",
                             items: [
-                                "spec/cpdlc",
-                                "spec/cpdlc/logon",
-                                "spec/cpdlc/connection",
-                                "spec/cpdlc/uplink",
-                                "spec/cpdlc/downlink",
-                                "spec/cpdlc/messages",
+                                "cpdlc",
+                                "cpdlc/logon",
+                                "cpdlc/connection",
+                                "cpdlc/uplink",
+                                "cpdlc/downlink",
+                                "cpdlc/messages",
                             ],
                         },
                         {
                             label: "ACARS",
-                            items: ["spec/acars"],
+                            items: ["acars"],
                         },
                     ],
                 },
