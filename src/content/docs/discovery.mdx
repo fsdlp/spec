@@ -37,8 +37,8 @@ Identification is performed over HTTP with the `/id` endpoint, over which provid
 - `version` shall reflect the version of the specification being followed. The current version is `1`.
 - `provider` provides information about the provider client that sent this payload.
     - `name` shall be a brief, identifiable name of the network, virtual airline, or other kind of provider. This information may be shown in virtual cockpits when prompting pilots to establish a data link connection.
-    - `type` shall be either `network` or `other` to indicate the kind of provider client. This determines which client has priority when using a feature that is supported by multiple clients, as networks will have priority in such cases ([learn more]()).
-    - `features` shall be an array with with all features supported by the provider client. A list of features can be found on the [TODO]() page. A provider client providing an empty features array may not receive any requests.
+    - `type` shall be either `network` or `other` to indicate the kind of provider client. This determines which client has priority when using a feature that is supported by multiple clients, as networks will have priority in such cases ([learn more](/spec)).
+    - `features` shall be an array with with all features supported by the provider client. A list of features can be found on the [TODO](/spec) page. A provider client providing an empty features array may not receive any requests.
 
 
 For a single provider client, the identification flow is as follows:
@@ -94,9 +94,9 @@ Provider clients shall bind to local address `127.0.0.1` on any available port i
 
     The `provider.name` field shall be populated with a brief, identifiable name of the network or virtual airline. This information may be shown in virtual cockpits when prompting pilots to establish a data link connection.
 
-    The `provider.type` field shall be populated with either `network` or `other` to indicate the kind of provider client. This determines which client has priority when using a feature that is supported by multiple clients, as networks will have priority in such cases ([learn more]()).
+    The `provider.type` field shall be populated with either `network` or `other` to indicate the kind of provider client. This determines which client has priority when using a feature that is supported by multiple clients, as networks will have priority in such cases ([learn more](/spec)).
 
-    The `provider.features` field shall be populated with a list of all features supported by the provider client. A list of features can be found on the [TODO]() page.
+    The `provider.features` field shall be populated with a list of all features supported by the provider client. A list of features can be found on the [TODO](/spec) page.
 </Steps>
 
 :::note
