@@ -21,7 +21,7 @@ Identification is performed over HTTP with the `/id` endpoint, over which provid
 
 ### Schema
 
-```json """" "[]"
+```json """" "[]" {"1":5} {"2":6} {"3":7}
 {
     "protocol": "fsdlp",
     "version": 1,
@@ -33,15 +33,14 @@ Identification is performed over HTTP with the `/id` endpoint, over which provid
 }
 ```
 
-- `procotol` shall always be `fsdlp`.
-- `version` shall reflect the version of the specification being followed. The current version is `1`.
-- `provider` provides information about the provider client that sent this payload.
-    - `name` shall be a brief, identifiable name of the network, virtual airline, or other kind of provider. This information may be shown in virtual cockpits when prompting pilots to establish a data link connection.
-    - `type` shall be either `network` or `other` to indicate the kind of provider client. This determines which client has priority when using a feature that is supported by multiple clients, as networks will have priority in such cases ([learn more](/spec)).
-    - `features` shall be an array with with all features supported by the provider client. A list of features can be found on the [TODO](/spec) page. A provider client providing an empty features array may not receive any requests.
+1. The `name` field shall be a brief identifier of the network, virtual airline, or other kind of provider. This information may be shown in virtual cockpits when prompting pilots to establish a data link connection.
+2. The `type` field shall be either `network` or `other` to indicate the kind of provider client. This determines which client has priority when using a feature that is supported by multiple clients, as networks will have priority in such cases ([learn more](/spec)).
+3. The `features` field shall be an array with with all features supported by the provider client. A list of features can be found on the [TODO](/spec) page. A provider client providing an empty features array may not receive any requests.
 
 
-For a single provider client, the identification flow is as follows:
+## Provider Clients
+
+Provider clients shall bind to local address `127.0.0.1` on any available port in the range `60860—60867`, inclusive. Once bound, the following identification flow must be satisfied:
 
 <Steps>
 1. Provider client receives HTTP `GET` request on `/id`:
@@ -65,40 +64,6 @@ For a single provider client, the identification flow is as follows:
     ```
 </Steps>
 
-
-
-## Provider Clients
-
-Provider clients shall bind to local address `127.0.0.1` on any available port in the range `60860—60867`, inclusive. Once bound, clients must satisfy the following exchange in order to be discoverable by airborne clients:
-
-<Steps>
-1. Provider client receives HTTP `GET` request on `/id`:
-
-    ```http
-    GET /id HTTP/1.1
-    ```
-
-2. Provider client responds with the following JSON payload:
-
-    ```json """" "[]"
-    {
-        "protocol": "fsdlp",
-        "version": 1,
-        "provider": {
-            "name": "",
-            "type": "",
-            "features": []
-        }
-    }
-    ```
-
-    The `provider.name` field shall be populated with a brief, identifiable name of the network or virtual airline. This information may be shown in virtual cockpits when prompting pilots to establish a data link connection.
-
-    The `provider.type` field shall be populated with either `network` or `other` to indicate the kind of provider client. This determines which client has priority when using a feature that is supported by multiple clients, as networks will have priority in such cases ([learn more](/spec)).
-
-    The `provider.features` field shall be populated with a list of all features supported by the provider client. A list of features can be found on the [TODO](/spec) page.
-</Steps>
-
 :::note
 While not necessarily a focus of this protocol, this method does allow provider clients to discover other providers. This could potentially be useful for automatically detecting if a pilot is flying on a network and/or for a virtual airline.
 :::
@@ -106,8 +71,4 @@ While not necessarily a focus of this protocol, this method does allow provider 
 
 ## Airborne Clients
 
-While there are no requirements for an airborne client to be discoverable, as they are are always the first to initiate a data link connection, there are guidelines on how an airborne client discovers available provider clients.
-
-To discover providers, an airborne client need only request the `/id` HTTP endpoint on all ports in the range `60860—60867`. A valid response matching the [schema provided above](#identification) To improve performance, it is recommended that this be done asynchronously for all eight ports, as waiting on each request will time out for each inactive port.
-
-Airborne clients should perform service discovery either on initial load or on initial pilot interaction with a data link system. It is also recommended that the client
+TODO
