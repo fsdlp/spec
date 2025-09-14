@@ -2,21 +2,74 @@
 title: Service Discovery
 ---
 
-import { Aside, Steps } from '@astrojs/starlight/components';
+import { Steps } from '@astrojs/starlight/components';
 
 
-The key difference between FSDLP and prior solutions is its decentralized nature. Rather than a single entity federating communications between aircraft, air traffic units, and virtual airline operations centers, the responsibility is shared between all of the aforementioned users.
+The key difference between FSDLP and prior solutions is its decentralized nature. Rather than a single entity federating communications between aircraft, air traffic units, and virtual airline operations centers, the responsibility is shared between all participants.
 
-To facilitate this, a method for service discovery is necessary, as an airborne client must know which provider clients are available and what capabilities they posess. A pre-determined port range of `60860—60867` is used to make port scanning easier on airborne clients.
+To facilitate this, a method for service discovery is necessary, as an airborne client must know which provider clients are available and what capabilities they posess. A pre-determined port range of `60860—60867` is used to make port scanning easier for airborne clients.
 
-<Aside type="caution">
-    The port range above only allows for **up to eight clients** on a single machine. We believe this to be a sufficient quantity, as there are typically at most two at any given moment: a network and a virtual airline.
-</Aside>
+:::note
+The port range above only allows for **up to eight clients** on a single machine. We believe this to be a sufficient quantity, as there are typically at most two at any given moment: a network and a virtual airline. A tigher range reduces the amount of work that clients must perform in order to complete a scan.
+:::
+
+## Identification
+
+The service discovery flow boils down to requesting identification details from a potential provider client on one of the pre-defined ports, and using that information to determine where to route downlink messages.
+
+Identification is performed over HTTP with the `/id` endpoint, over which provider clients will provide a JSON payload matching the schema provided below.
+
+### Schema
+
+```json """" "[]"
+{
+    "protocol": "fsdlp",
+    "version": 1,
+    "provider": {
+        "name": "",
+        "type": "",
+        "features": []
+    }
+}
+```
+
+- `procotol` shall always be `fsdlp`.
+- `version` shall reflect the version of the specification being followed. The current version is `1`.
+- `provider` provides information about the provider client that sent this payload.
+    - `name` shall be a brief, identifiable name of the network, virtual airline, or other kind of provider. This information may be shown in virtual cockpits when prompting pilots to establish a data link connection.
+    - `type` shall be either `network` or `other` to indicate the kind of provider client. This determines which client has priority when using a feature that is supported by multiple clients, as networks will have priority in such cases ([learn more]()).
+    - `features` shall be an array with with all features supported by the provider client. A list of features can be found on the [TODO]() page. A provider client providing an empty features array may not receive any requests.
 
 
-## Provider Client Identification
+For a single provider client, the identification flow is as follows:
 
-Provider clients shall bind to local address `127.0.0.1` on any port in the range `60860—60867`, inclusive. Once bound, clients must satisfy the following exchange in order to be discoverable by airborne clients:
+<Steps>
+1. Provider client receives HTTP `GET` request on `/id`:
+
+    ```http
+    GET /id HTTP/1.1
+    ```
+
+2. Provider client responds with the below JSON payload, for example
+
+    ```json
+    {
+        "protocol": "fsdlp",
+        "version": 1,
+        "provider": {
+            "name": "VASTSIM",
+            "type": "network",
+            "features": ["a", "b", "c"]
+        }
+    }
+    ```
+</Steps>
+
+
+
+## Provider Clients
+
+Provider clients shall bind to local address `127.0.0.1` on any available port in the range `60860—60867`, inclusive. Once bound, clients must satisfy the following exchange in order to be discoverable by airborne clients:
 
 <Steps>
 1. Provider client receives HTTP `GET` request on `/id`:
@@ -39,18 +92,22 @@ Provider clients shall bind to local address `127.0.0.1` on any port in the rang
     }
     ```
 
-    The `provider.name` field shall be populated with a brief, identifiable name of the network or virtual airline. This information may be shown in virtual cockpits when prompting pilots to establush a data link connection.
+    The `provider.name` field shall be populated with a brief, identifiable name of the network or virtual airline. This information may be shown in virtual cockpits when prompting pilots to establish a data link connection.
 
-    The `provider.type` field shall be populated with either `network` or `other` to indicate the kind of provider client. This determines the prioritization of clients in cases where multiple clients support a particular feature, as networks will take priority in such cases.
+    The `provider.type` field shall be populated with either `network` or `other` to indicate the kind of provider client. This determines which client has priority when using a feature that is supported by multiple clients, as networks will have priority in such cases ([learn more]()).
 
-    The `provider.features` field shall be populated with a list of all features supported by the provider client.
+    The `provider.features` field shall be populated with a list of all features supported by the provider client. A list of features can be found on the [TODO]() page.
 </Steps>
 
-<Aside>
-    While not necessarily a focus of this protocol, this method does allow provider clients to discover other providers and alter their logic in reponse to the presence or absence of other clients.
-</Aside>
+:::note
+While not necessarily a focus of this protocol, this method does allow provider clients to discover other providers. This could potentially be useful for automatically detecting if a pilot is flying on a network and/or for a virtual airline.
+:::
 
 
-## Airborne Client Identification
+## Airborne Clients
 
-While there are no requirements for an airborne client to be discoverable, as they are are always the first to initiate a data link connection, there are requirements on how an airborne client dicovers available provider clients.
+While there are no requirements for an airborne client to be discoverable, as they are are always the first to initiate a data link connection, there are guidelines on how an airborne client discovers available provider clients.
+
+To discover providers, an airborne client need only request the `/id` HTTP endpoint on all ports in the range `60860—60867`. A valid response matching the [schema provided above](#identification) To improve performance, it is recommended that this be done asynchronously for all eight ports, as waiting on each request will time out for each inactive port.
+
+Airborne clients should perform service discovery either on initial load or on initial pilot interaction with a data link system. It is also recommended that the client

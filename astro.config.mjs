@@ -12,6 +12,9 @@ export default defineConfig({
         mermaid(),
         starlight({
             title: "Flight Simulation Data Link Protocol",
+            titleDelimiter: "::",
+            editLink: { baseUrl: "https://github.com/fsdlp/spec/edit/main" },
+            lastUpdated: true,
             favicon: "/icon.svg",
             logo: {
                 dark: "/public/wordmark-dark.svg",
@@ -32,7 +35,7 @@ export default defineConfig({
                             items: [
                                 "cpdlc",
                                 "cpdlc/logon",
-                                "cpdlc/connection",
+                                "cpdlc/connections",
                                 "cpdlc/uplink",
                                 "cpdlc/downlink",
                                 "cpdlc/messages",

@@ -14,6 +14,7 @@
     "dependencies": {
         "@astrojs/starlight": "^0.34.4",
         "@astrojs/starlight-tailwind": "4.0.1",
+        "@expressive-code/plugin-collapsible-sections": "0.41.3",
         "@fontsource/hind": "5.2.6",
         "@fontsource/ibm-plex-mono": "5.2.6",
         "@fontsource/poppins": "5.2.6",
