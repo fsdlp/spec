@@ -38,6 +38,7 @@ export default defineConfig({
                                 "cpdlc/connections",
                                 "cpdlc/uplink",
                                 "cpdlc/downlink",
+                                "cpdlc/parameters",
                             ],
                         },
                         {
