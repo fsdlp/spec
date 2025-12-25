@@ -1,0 +1,173 @@
+---
+title: Uplink
+---
+
+import { Badge } from '@astrojs/starlight/components';
+
+
+## ..
+
+Below is a table of all possible uplink message elements.
+
+### Response Attributes
+
+<table>
+    <thead>
+        <tr>
+            <th>Resp.</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: right">
+                <Badge text="W/U" variant="danger" />
+            </td>
+            <td>
+                **Response Required** with one of the following downlink messages:
+                - `DM0 — WILCO`
+                - `DM1 — UNABLE`
+                - `DM2 — STANDBY`
+                - `DM62 — ERROR [error information]`
+                - `DM63 — NOT CURRENT DATA AUTHORITY`
+                - `DM107 — NOT AUTHORIZED NEXT DATA AUTHORITY`
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right">
+                <Badge text="A/N" variant="danger" />
+            </td>
+            <td>
+                **Response Required** with one of the following downlink messages:
+                - `DM2 — STANDBY`
+                - `DM4 — AFFIRM`
+                - `DM5 — NEGATIVE`
+                - `DM62 — ERROR [error information]`
+                - `DM63 — NOT CURRENT DATA AUTHORITY`
+                - `DM107 — NOT AUTHORIZED NEXT DATA AUTHORITY`
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right">
+                <Badge text="R" variant="danger" />
+            </td>
+            <td>
+                **Response Required** with one of the following downlink messages:
+                - `DM1 — UNABLE`
+                - `DM2 — STANDBY`
+                - `DM3 — ROGER`
+                - `DM62 — ERROR [error information]`
+                - `DM63 — NOT CURRENT DATA AUTHORITY`
+                - `DM107 — NOT AUTHORIZED NEXT DATA AUTHORITY`
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right">
+                <Badge text="Y" variant="danger" />
+            </td>
+            <td>
+                **Response Required** with any downlink message
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right">
+                <Badge text="N" variant="caution" />
+            </td>
+            <td>
+                **Response Not Required**, but one of the following downlink messages could be sent:
+                - `DM62 — ERROR [error information]`
+                - `DM63 — NOT CURRENT DATA AUTHORITY`
+                - `DM107 — NOT AUTHORIZED NEXT DATA AUTHORITY`
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right">
+                <Badge text="NE" variant="success" />
+            </td>
+            <td>
+                **Response Not Required**, and the message should be considered closed even though a response may be downlinked by the aircraft
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+### List of Messages
+
+| ID | Resp. | Formatted Message |
+|---:|:---:|---|
+| <kbd>UM0</kbd> | <Badge text="N" variant="caution" /> | `UNABLE` |
+| <kbd>UM1</kbd> | <Badge text="N" variant="caution" /> | `STANDBY` |
+| <kbd>UM3</kbd> | <Badge text="N" variant="caution" /> | `ROGER` |
+| <kbd>UM4</kbd> | <Badge text="N" variant="caution" /> | `AFFIRM` |
+| <kbd>UM5</kbd> | <Badge text="N" variant="caution" /> | `NEGATIVE` |
+|  |  |  |
+| <kbd>UM19</kbd> | <Badge text="W/U" variant="danger" /> | `MAINTAIN [altitude]` |
+| <kbd>UM20</kbd> | <Badge text="W/U" variant="danger" /> | `CLIMB TO [altitude]` |
+| <kbd>UM23</kbd> | <Badge text="W/U" variant="danger" /> | `DESCEND TO [altitude]` |
+| <kbd>UM26</kbd> | <Badge text="W/U" variant="danger" /> | `CLIMB TO REACH [altitude] BY [time]` |
+| <kbd>UM27</kbd> | <Badge text="W/U" variant="danger" /> | `CLIMB TO REACH [altitude] BY [position]` |
+| <kbd>UM28</kbd> | <Badge text="W/U" variant="danger" /> | `DESCEND TO REACH [altitude] BY [time]` |
+| <kbd>UM29</kbd> | <Badge text="W/U" variant="danger" /> | `DESCEND TO REACH [altitude] BY [position]` |
+| <kbd>UM30</kbd> | <Badge text="W/U" variant="danger" /> | `MAINTAIN BLOCK [altitude] TO [altitude]` |
+| <kbd>UM31</kbd> | <Badge text="W/U" variant="danger" /> | `CLIMB TO AND MAINTAIN BLOCK [altitude] TO [altitude]` |
+| <kbd>UM32</kbd> | <Badge text="W/U" variant="danger" /> | `DESCEND TO AND MAINTAIN BLOCK [altitude] TO [altitude]` |
+| <kbd>UM36</kbd> | <Badge text="W/U" variant="danger" /> | `EXPEDITE CLIMB TO [altitude]` |
+| <kbd>UM37</kbd> | <Badge text="W/U" variant="danger" /> | `EXPEDITE DESCENT TO [altitude]` |
+| <kbd>UM38</kbd> | <Badge text="W/U" variant="danger" /> | `IMMEDIATELY CLIMB TO [altitude]` |
+| <kbd>UM39</kbd> | <Badge text="W/U" variant="danger" /> | `IMMEDIATELY DESCEND TO [altitude]` |
+| <kbd>UM46</kbd> | <Badge text="W/U" variant="danger" /> | `CROSS [position] AT [altitude]` |
+| <kbd>UM47</kbd> | <Badge text="W/U" variant="danger" /> | `CROSS [position] AT OR ABOVE [altitude]` |
+| <kbd>UM48</kbd> | <Badge text="W/U" variant="danger" /> | `CROSS [position] AT OR BELOW [altitude]` |
+| <kbd>UM49</kbd> | <Badge text="W/U" variant="danger" /> | `CROSS [position] AT AND MAINTAIN [altitude]` |
+| <kbd>UM51</kbd> | <Badge text="W/U" variant="danger" /> | `CROSS [position] AT [time]` |
+| <kbd>UM52</kbd> | <Badge text="W/U" variant="danger" /> | `CROSS [position] AT OR BEFORE [time]` |
+| <kbd>UM53</kbd> | <Badge text="W/U" variant="danger" /> | `CROSS [position] AT OR AFTER [time]` |
+| <kbd>UM54</kbd> | <Badge text="W/U" variant="danger" /> | `CROSS [position] BETWEEN [time] AND [time]` |
+| <kbd>UM55</kbd> | <Badge text="W/U" variant="danger" /> | `CROSS [position] AT [speed]` |
+| <kbd>UM56</kbd> | <Badge text="W/U" variant="danger" /> | `CROSS [position] AT OR LESS THAN [speed]` |
+| <kbd>UM57</kbd> | <Badge text="W/U" variant="danger" /> | `CROSS [position] AT OR GREATER THAN [speed]` |
+| <kbd>UM61</kbd> | <Badge text="W/U" variant="danger" /> | `CROSS [position] AT [altitude] AT [speed]` |
+| <kbd>UM64</kbd> | <Badge text="W/U" variant="danger" /> | `OFFSET [distance] [direction] OF ROUTE` |
+| <kbd>UM72</kbd> | <Badge text="W/U" variant="danger" /> | `RESUME OWN NAVIGATION` |
+| <kbd>UM74</kbd> | <Badge text="W/U" variant="danger" /> | `PROCEED DIRECT TO [position]` |
+| <kbd>UM75</kbd> | <Badge text="W/U" variant="danger" /> | `WHEN ABLE PROCEED DIRECT TO [position]` |
+| <kbd>UM76</kbd> | <Badge text="W/U" variant="danger" /> | `AT [time] PROCEED DIRECT TO [position]` |
+| <kbd>UM77</kbd> | <Badge text="W/U" variant="danger" /> | `AT [position] PROCEED DIRECT TO [position]` |
+| <kbd>UM78</kbd> | <Badge text="W/U" variant="danger" /> | `AT [altitude] PROCEED DIRECT TO [position]` |
+| <kbd>UM79</kbd> | <Badge text="W/U" variant="danger" /> | `CLEARED TO [position] VIA [route clearance]` |
+| <kbd>UM80</kbd> | <Badge text="W/U" variant="danger" /> | `CLEARED [route clearance]` |
+| <kbd>UM81</kbd> | <Badge text="W/U" variant="danger" /> | `CLEARED [procedure]` |
+| <kbd>UM82</kbd> | <Badge text="W/U" variant="danger" /> | `CLEARED TO DEVIATE UP TO [distanceoffset] [direction] OF ROUTE` |
+| <kbd>UM83</kbd> | <Badge text="W/U" variant="danger" /> | `AT [position] CLEARED [route clearance]` |
+| <kbd>UM84</kbd> | <Badge text="W/U" variant="danger" /> | `AT [position] CLEARED [procedure]` |
+| <kbd>UM91</kbd> | <Badge text="W/U" variant="danger" /> | `HOLD AT [position] MAINTAIN [altitude] INBOUND TRACK [degrees] [direction] TURN LEG TIME [leg type]` |
+| <kbd>UM92</kbd> | <Badge text="W/U" variant="danger" /> | `HOLD AT [position] AS PUBLISHED MAINTAIN [altitude]` |
+| <kbd>UM93</kbd> | <Badge text="R" variant="danger" /> | `EXPECT FURTHER CLEARANCE AT [time]` |
+| <kbd>UM94</kbd> | <Badge text="W/U" variant="danger" /> | `TURN [direction] HEADING [degrees]` |
+| <kbd>UM96</kbd> | <Badge text="W/U" variant="danger" /> | `CONTINUE PRESENT HEADING` |
+| <kbd>UM106</kbd> | <Badge text="W/U" variant="danger" /> | `MAINTAIN [speed]` |
+| <kbd>UM107</kbd> | <Badge text="W/U" variant="danger" /> | `MAINTAIN PRESENT SPEED` |
+| <kbd>UM108</kbd> | <Badge text="W/U" variant="danger" /> | `MAINTAIN [speed] OR GREATER` |
+| <kbd>UM109</kbd> | <Badge text="W/U" variant="danger" /> | `MAINTAIN [speed] OR LESS` |
+| <kbd>UM116</kbd> | <Badge text="W/U" variant="danger" /> | `RESUME NORMAL SPEED` |
+| <kbd>UM117</kbd> | <Badge text="W/U" variant="danger" /> | `CONTACT unit name frequency` |
+| <kbd>UM120</kbd> | <Badge text="W/U" variant="danger" /> | `MONITOR unit name frequency` |
+| <kbd>UM123</kbd> | <Badge text="W/U" variant="danger" /> | `SQUAWK [beacon code]` |
+| <kbd>UM127</kbd> | <Badge text="R" variant="danger" /> | `REPORT BACK ON ROUTE` |
+| <kbd>UM134</kbd> | <Badge text="NE" variant="success" /> | `CONFIRM SPEED` |
+| <kbd>UM135</kbd> | <Badge text="NE" variant="success" /> | `CONFIRM ASSIGNED ALTITUDE` |
+| <kbd>UM137</kbd> | <Badge text="NE" variant="success" /> | `CONFIRM ASSIGNED ROUTE` |
+| <kbd>UM148</kbd> | <Badge text="NE" variant="success" /> | `WHEN CAN YOU ACCEPT [altitude]` |
+| <kbd>UM153</kbd> | <Badge text="R" variant="danger" /> | `ALTIMETER [altimeter]` |
+| <kbd>UM154</kbd> | <Badge text="R" variant="danger" /> | `RADAR SERVICES TERMINATED` |
+| <kbd>UM157</kbd> | <Badge text="R" variant="danger" /> | `CHECK STUCK MICROPHONE frequency` |
+| <kbd>UM159</kbd> | <Badge text="N" variant="caution" /> | `ERROR [error information]` |
+| <kbd>UM160</kbd> | <Badge text="N" variant="caution" /> | `NEXT DATA AUTHORITY [facility ident]` |
+| <kbd>UM161</kbd> | <Badge text="N" variant="caution" /> | `END SERVICE` |
+| <kbd>UM163</kbd> | <Badge text="N" variant="caution" /> | `[facility designation]` |
+| <kbd>UM166</kbd> | <Badge text="N" variant="caution" /> | `DUE TO TRAFFIC` |
+| <kbd>UM167</kbd> | <Badge text="N" variant="caution" /> | `DUE TO AIRSPACE RESTRICTION` |
+| <kbd>UM179</kbd> | <Badge text="W/U" variant="danger" /> | `SQUAWK IDENT` |
+| <kbd>UM183</kbd> | <Badge text="N" variant="caution" /> | `CURRENT ATC UNIT unit name` |
+|  |  |  |
+| <kbd>UM169</kbd> | <Badge text="R" variant="danger" /> | `[free text]` |
