@@ -10,8 +10,8 @@ Many message elements have parameters that communicate specific conditions or in
 Within FSDLP, each message element describes exactly what kind of value is expected, and then an object with the unit and value together is provided in the uplink or downlink. For example, to convey an altitude of 25,000 feet, either of the two parameter objects can be used:
 
 ```json
-{"type": "alt-ft", "alt": 25000}
-{"type": "alt-fl", "alt": 250}
+{"type": "alt-ft", "value": 25000}
+{"type": "alt-fl", "value": 250}
 ```
 
 For each message element, all parameters **must** be provided.
@@ -20,26 +20,27 @@ The following table summarizes all of the different parameter types:
 
 | `type` | Example | Unit | Range |
 |-|-|-|-|
-| [`alt-fl`](#alt-fl) | <Code lang="json" code={'{"type": "alt-fl", "alt": 360}'} /> | `100 ft` | `30–600` |
-| [`alt-ft`](#alt-ft) | <Code lang="json" code={'{"type": "alt-ft", "alt": 5000}'} /> | `1 ft` | `0–25000` |
-| [`deg`](#deg) | <Code lang="json" code={'{"type": "deg", "deg": 180}'} /> | `1 deg` | `1–360` |
-| [`dist`](#dist) | <Code lang="json" code={'{"type": "dist", "dist": 305}'} /> | `0.1 nmi` | `0–9999` |
-| [`freq-hf`](#freq-hf) | <Code lang="json" code={'{"type": "freq-hf", "freq": 13306}'} /> | `1 kHz` | `2850–28000` |
-| [`freq-vhf`](#freq-vhf) | <Code lang="json" code={'{"type": "freq-vhf", "freq": 121900}'} /> | `1 kHz` | `118000–136975` |
-| [`spd-kts`](#spd-kts) | <Code lang="json" code={'{"type": "spd-kts", "spd": 6}'} /> | `10 kts` | `7–38` |
-| [`spd-mach`](#spd-mach) | <Code lang="json" code={'{"type": "spd-mach", "spd": 82}'} /> | `0.01 mach` | `61–99` |
-| [`time`](#time) | <Code lang="json" code={'{"type": "time", "hrs": 6, "min": 35}'} /> | `1 hr`<br/>`1 min` | `0–23`<br/>`0–59` |
-| [`qnh-hpa`](#qnh-hpa) | <Code lang="json" code={'{"type": "qnh-hpa", "qnh": 1013}'} /> | `1 hPa` | `850–1050` |
-| [`qnh-inhg`](#qnh-inhg) | <Code lang="json" code={'{"type": "qnh-inhg", "qnh": 2992}'} /> | `0.01 inHg` | `2500–3100` |
+| [`alt-fl`](#alt-fl) | <Code lang="json" code={'{"type": "alt-fl", "value": 360}'} /> | `100 ft` | `30–600` |
+| [`alt-ft`](#alt-ft) | <Code lang="json" code={'{"type": "alt-ft", "value": 5000}'} /> | `1 ft` | `0–25000` |
+| [`deg`](#deg) | <Code lang="json" code={'{"type": "deg", "value": 180}'} /> | `1 deg` | `1–360` |
+| [`dist`](#dist) | <Code lang="json" code={'{"type": "dist", "value": 305}'} /> | `0.1 nmi` | `0–9999` |
+| [`freq-hf`](#freq-hf) | <Code lang="json" code={'{"type": "freq-hf", "value": 13306}'} /> | `1 kHz` | `2850–28000` |
+| [`freq-vhf`](#freq-vhf) | <Code lang="json" code={'{"type": "freq-vhf", "value": 121900}'} /> | `1 kHz` | `118000–136975` |
+| [`spd-kts`](#spd-kts) | <Code lang="json" code={'{"type": "spd-kts", "value": 6}'} /> | `10 kts` | `7–38` |
+| [`spd-mach`](#spd-mach) | <Code lang="json" code={'{"type": "spd-mach", "value": 82}'} /> | `0.01 mach` | `61–99` |
+| [`time`](#time) | <Code lang="json" code={'{\n\t"type": "time",\n\t"value": {"hrs": 6, "min": 35}\n}'} /> | `1 hr`<br/>`1 min` | `0–23`<br/>`0–59` |
+| [`qnh-hpa`](#qnh-hpa) | <Code lang="json" code={'{"type": "qnh-hpa", "value": 1013}'} /> | `1 hPa` | `850–1050` |
+| [`qnh-inhg`](#qnh-inhg) | <Code lang="json" code={'{"type": "qnh-inhg", "value": 2992}'} /> | `0.01 inHg` | `2500–3100` |
 |||||
-| [`atsu`](#atsu) | <Code lang="json" code={'{\n\t"type": "atsu",\n\t"ident": "LKAA",\n\t"name": "PRAHA",\n\t"func": 7\n}'} /> |||
-| [`beacon`](#beacon) | <Code lang="json" code={'{"type": "beacon", "code": 7500}'} /> |||
-| [`dir`](#dir) | <Code lang="json" code={'{"type": "dir", "dir": 0}'} /> |||
-| [`pos-fix`](#pos-fix) | <Code lang="json" code={'{"type": "pos-fix", "pos": "LENDY"}'} /> |||
-| [`pos-navaid`](#pos-navaid) | <Code lang="json" code={'{"type": "pos-navaid", "pos": "CRI"}'} /> |||
-| [`pos-airport`](#pos-airport) | <Code lang="json" code={'{"type": "pos-airport", "pos": "KJFK"}'} /> |||
-| [`pos-latlon`](#pos-latlon) | <Code lang="json" code={'{\n\t"type": "pos-latlon",\n\t"lat": 40.6446,\n\t"lon": -73.7797\n}'} /> |||
-| [`text`](#text) | <Code lang="json" code={'{"type": "text", "text": "HELLO, WORLD!"}'} /> |||
+| [`atsu`](#atsu) | <Code lang="json" code={'{\n\t"type": "atsu",\n\t"value": {\n\t\t"ident": "LKAA",\n\t\t"name": "PRAHA",\n\t\t"func": 7\n\t}\n}'} /> |||
+| [`beacon`](#beacon) | <Code lang="json" code={'{"type": "beacon", "value": 7500}'} /> |||
+| [`dir`](#dir) | <Code lang="json" code={'{"type": "dir", "value": 0}'} /> |||
+| [`pos-fix`](#pos-fix) | <Code lang="json" code={'{"type": "pos-fix", "value": "LENDY"}'} /> |||
+| [`pos-navaid`](#pos-navaid) | <Code lang="json" code={'{"type": "pos-navaid", "value": "CRI"}'} /> |||
+| [`pos-airport`](#pos-airport) | <Code lang="json" code={'{"type": "pos-airport", "value": "KJFK"}'} /> |||
+| [`pos-latlon`](#pos-latlon) | <Code lang="json" code={'{\n\t"type": "pos-latlon",\n\t"value": {"lat": 40.6446, "lon": -73.7797}\n}'} /> |||
+| [`text`](#text) | <Code lang="json" code={'{"type": "text", "value": "HELLO, WORLD!"}'} /> |||
+| [`number`](#number) | <Code lang="json" code={'{"type": "number", "value": 10}'} /> |||
 
 
 
@@ -48,19 +49,19 @@ The following table summarizes all of the different parameter types:
 
 ### `alt-fl`
 
-Altitude represented as a **flight level (FL)**. `alt` shall be an integer between 30 and 600, inclusive, where one unit is equal to 100 feet.
+Altitude represented as a **flight level (FL)**. `value` shall be an integer between 30 and 600, inclusive, where one unit is equal to 100 feet.
 
 ```json
-{"type": "alt-fl", "alt": 360}  // FL360
+{"type": "alt-fl", "value": 360}  // FL360
 ```
 
 
 ### `alt-ft`
 
-Altitude in **feet (ft)**. `alt` shall be an integer between 0 and 25000, inclusive, where one unit is equal to 1 foot.
+Altitude in **feet (ft)**. `value` shall be an integer between 0 and 25000, inclusive, where one unit is equal to 1 foot.
 
 ```json
-{"type": "alt-ft", "alt": 5000}  // 5000 ft
+{"type": "alt-ft", "value": 5000}  // 5000 ft
 ```
 
 
@@ -69,10 +70,10 @@ Altitude in **feet (ft)**. `alt` shall be an integer between 0 and 25000, inclus
 
 ### `deg`
 
-Heading as **degrees from magnetic north**. `deg` shall be an integer between 1 and 360, inclusive, where one unit is equal to 1 degree.
+Heading as **degrees from magnetic north**. `value` shall be an integer between 1 and 360, inclusive, where one unit is equal to 1 degree.
 
 ```json
-{"type": "deg", "deg": 180}  // 180°
+{"type": "deg", "value": 180}  // 180°
 ```
 
 
@@ -81,10 +82,10 @@ Heading as **degrees from magnetic north**. `deg` shall be an integer between 1 
 
 ### `dist`
 
-Distance represented as **nautical miles (nmi)**. `dist` shall be an integer between 0 and 9999, inclusive, where one unit is equal to 0.1 nautical miles.
+Distance represented as **nautical miles (nmi)**. `value` shall be an integer between 0 and 9999, inclusive, where one unit is equal to 0.1 nautical miles.
 
 ```json
-{"type": "dist", "dist": 305}  // 30.5 nmi
+{"type": "dist", "value": 305}  // 30.5 nmi
 ```
 
 
@@ -93,19 +94,19 @@ Distance represented as **nautical miles (nmi)**. `dist` shall be an integer bet
 
 ### `freq-hf`
 
-Frequency of a high-frequency (HF) station in **kilohertz (kHz)**. `freq` shall be an integer between 2850 and 28000, inclusive, where one unit is equal to 1 kilohertz.
+Frequency of a high-frequency (HF) station in **kilohertz (kHz)**. `value` shall be an integer between 2850 and 28000, inclusive, where one unit is equal to 1 kilohertz.
 
 ```json
-{"type": "freq-hf", "freq": 13306}  // 13.306 MHz
+{"type": "freq-hf", "value": 13306}  // 13.306 MHz
 ```
 
 
 ### `freq-vhf`
 
-Frequency of a very-high-frequency (VHF) station in **kilohertz (kHz)**. `freq` shall be an integer between 118000 and 136975, inclusive, where one unit is equal to 1 kilohertz.
+Frequency of a very-high-frequency (VHF) station in **kilohertz (kHz)**. `value` shall be an integer between 118000 and 136975, inclusive, where one unit is equal to 1 kilohertz.
 
 ```json
-{"type": "freq-vhf", "freq": 121900}  // 121.900 MHz
+{"type": "freq-vhf", "value": 121900}  // 121.900 MHz
 ```
 
 
@@ -114,19 +115,19 @@ Frequency of a very-high-frequency (VHF) station in **kilohertz (kHz)**. `freq` 
 
 ### `spd-kts`
 
-Indicated airspeed in **knots (kts)**. `spd` shall be an integer between 7 and 38, inclusive, where one unit is equal to 10 knots.
+Indicated airspeed in **knots (kts)**. `value` shall be an integer between 7 and 38, inclusive, where one unit is equal to 10 knots.
 
 ```json
-{"type": "spd-kts", "spd": 6}  // 60 kts
+{"type": "spd-kts", "value": 6}  // 60 kts
 ```
 
 
 ### `spd-mach`
 
-Indicated airspeed represented as a **mach number**. `spd` shall be an integer between 61 and 99, inclusive, where one unit is equal to 0.01 mach.
+Indicated airspeed represented as a **mach number**. `value` shall be an integer between 61 and 99, inclusive, where one unit is equal to 0.01 mach.
 
 ```json
-{"type": "spd-mach", "spd": 82}  // 0.82 mach
+{"type": "spd-mach", "value": 82}  // 0.82 mach
 ```
 
 
@@ -135,10 +136,18 @@ Indicated airspeed represented as a **mach number**. `spd` shall be an integer b
 
 ### `time`
 
-Time as **universal coordinated time (UTC)**. `hrs` shall be an integer between 0 and 23, inclusive. `min` shall be an integer between 0 and 59, inclusive.
+Time represented by hours and minutes. In most contexts, this shall be interpreted as **universal coordinated time (UTC)**, but in others it may simply represent a duration. `value` shall be an object of:
+- `hrs`, an integer between 0 and 23, inclusive; and
+- `min`, an integer between 0 and 59, inclusive.
 
 ```json
-{"type": "time", "hrs": 6, "min": 35}
+{
+    "type": "time",
+    "value": {
+        "hrs": 6,
+        "min": 35
+    }
+}
 ```
 
 
@@ -147,20 +156,28 @@ Time as **universal coordinated time (UTC)**. `hrs` shall be an integer between 
 
 ### `qnh-inhg`
 
-Altimeter in **inches of mercury (inHg)**. `qnh` shall be an integer between 2500 and 3100, inclusive, where one unit is equal to 0.01 inHg.
+Altimeter in **inches of mercury (inHg)**. `value` shall be an integer between 2500 and 3100, inclusive, where one unit is equal to 0.01 inHg.
 
 ```json
-{"type": "qnh-inhg", "qnh": 2992}  // 29.92 inHg
+{"type": "qnh-inhg", "value": 2992}  // 29.92 inHg
 ```
 
 
 ### `qnh-hpa`
 
-Altimeter in **hectopascals (hPa)**. `qnh` shall be an integer between 850 and 1050, inclusive, where one unit is equal to 1 hPa.
+Altimeter in **hectopascals (hPa)**. `value` shall be an integer between 850 and 1050, inclusive, where one unit is equal to 1 hPa.
 
 ```json
-{"type": "qnh-hpa", "qnh": 1013}  // 1013 hPa
+{"type": "qnh-hpa", "value": 1013}  // 1013 hPa
 ```
+
+
+## Route Clearance
+
+
+### `route`
+
+
 
 
 ## ATSU Unit
@@ -168,6 +185,10 @@ Altimeter in **hectopascals (hPa)**. `qnh` shall be an integer between 850 and 1
 
 ### `atsu`
 
+An **air traffic service unit (ATSU) identifier** represented by the unit identifier, name, and function. `value` shall be an object of:
+- `ident`, the 4-letter ICAO identifier of the unit;
+- `name`, the human-readable name of the unit; and
+- `func`, an integer between 0 and 7, inclusive, where each value corresponds to the following functions:
 
 | Value | Direction |
 |-:|-|
@@ -181,11 +202,14 @@ Altimeter in **hectopascals (hPa)**. `qnh` shall be an integer between 850 and 1
 | `7` | Control |
 
 ```json
+// PHRAHA CONTROL
 {
     "type": "atsu",
-    "ident": "LKAA",
-    "name": "PRAHA",
-    "func": 7
+    "value": {
+        "ident": "LKAA",
+        "name": "PRAHA",
+        "func": 7
+    }
 }
 ```
 
@@ -195,10 +219,10 @@ Altimeter in **hectopascals (hPa)**. `qnh` shall be an integer between 850 and 1
 
 ### `beacon`
 
-Transponder beacon code. `code` shall be the 4-digit beacon code where each digit is between 0 and 7, inclusive.
+Transponder beacon code. `value` shall be the 4-digit beacon code where each digit is between 0 and 7, inclusive.
 
 ```json
-{"type": "beacon", "code": 7500}
+{"type": "beacon", "value": 7500}
 ```
 
 
@@ -207,7 +231,7 @@ Transponder beacon code. `code` shall be the 4-digit beacon code where each digi
 
 ### `dir`
 
-Cardinal direction represented as an **enumeration**. `dir` shall be an integer between 0 and 10, inclusive, where each value corresponds to the following direction:
+Cardinal direction represented as an **enumeration**. `value` shall be an integer between 0 and 10, inclusive, where each value corresponds to the following direction:
 
 | Value | Direction |
 |-:|-|
@@ -224,7 +248,7 @@ Cardinal direction represented as an **enumeration**. `dir` shall be an integer 
 | `10` | South West |
 
 ```json
-{"type": "dir", "dir": 0}  // Left
+{"type": "dir", "value": 0}  // Left
 ```
 
 
@@ -237,28 +261,28 @@ Cardinal direction represented as an **enumeration**. `dir` shall be an integer 
 Confirm terminology surrounding waypoints and/or fixes.
 :::
 
-Position specified by a **waypoint fix**. `pos` shall be the 5-letter ICAO waypoint identifier.
+Position specified by a **waypoint fix**. `value` shall be the 5-letter ICAO waypoint identifier.
 
 ```json
-{"type": "pos-fix", "pos": "LENDY"}
+{"type": "pos-fix", "value": "LENDY"}
 ```
 
 
 ### `pos-navaid`
 
-Position specified by a **navigational aid**, such as a VOR or DME. `pos` shall be the 2-to-4-letter ICAO navaid identifier.
+Position specified by a **navigational aid**, such as a VOR or DME. `value` shall be the 2-to-4-letter ICAO navaid identifier.
 
 ```json
-{"type": "pos-navaid", "pos": "CRI"}
+{"type": "pos-navaid", "value": "CRI"}
 ```
 
 
 ### `pos-airport`
 
-Position specified by an **airport reference point**. `pos` shall be the 4-letter ICAO airport identifier.
+Position specified by an **airport reference point**. `value` shall be the 4-letter ICAO airport identifier.
 
 ```json
-{"type": "pos-airport", "pos": "KJFK"}
+{"type": "pos-airport", "value": "KJFK"}
 ```
 
 
@@ -269,13 +293,15 @@ Position speciefied by a **WGS-84 latitude/longitude pair**. `lat` shall be the 
 ```json
 {
     "type": "pos-latlon",
-    "lat": 40.6446,
-    "lon": -73.7797
+    "value": {
+        "lat": 40.6446,
+        "lon": -73.7797
+    }
 }
 ```
 
 
-## Free Text
+## Unformatted
 
 
 ### `text`
@@ -283,5 +309,14 @@ Position speciefied by a **WGS-84 latitude/longitude pair**. `lat` shall be the 
 Unformatted text represented as a string.
 
 ```json
-{"type": "text", "text": "HELLO, WORLD!"}
+{"type": "text", "value": "HELLO, WORLD!"}
+```
+
+
+### `number`
+
+Unformatted number represented as a signed integer.
+
+```json
+{"type": "number", "value": 10}
 ```

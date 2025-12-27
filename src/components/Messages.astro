@@ -1,0 +1,45 @@
+---
+import { Badge } from "@astrojs/starlight/components";
+import type { ComponentProps } from "astro/types";
+
+type Message = {
+    id: string;
+    resp: string;
+    str: string;
+};
+
+type Props = {
+    colors: Record<string, ComponentProps<typeof Badge>["variant"]>;
+    messages: Message[];
+};
+
+const { colors, messages } = Astro.props;
+---
+
+<table>
+    <thead>
+        <tr>
+            <th align="right">ID</th>
+            <th align="center">Resp.</th>
+            <th>Formatted Message</th>
+        </tr>
+    </thead>
+    <tbody>
+        {messages.map(({ id, resp, str }) => (
+            <tr>
+                <td align="right"><kbd>{id}</kbd></td>
+                <td align="center">{resp && <Badge text={resp} variant={colors[resp]} />}</td>
+                <td>
+                    {str && (
+                        <code>
+                            {str.split(/\[([^\[\]]+)\]/)
+                                .map((str, i) => i % 2 == 0
+                                    ? str
+                                    : <>[<a href={`/spec/cpdlc/parameters#${str.replaceAll(" ", "-")}`}>{str}</a>]</>)}
+                        </code>
+                    )}
+                </td>
+            </tr>
+        ))}
+    </tbody>
+</table>

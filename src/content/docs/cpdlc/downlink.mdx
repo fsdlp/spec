@@ -1,3 +1,111 @@
 ---
 title: Downlink
 ---
+
+import { Badge } from '@astrojs/starlight/components';
+import Messages from '../../../components/Messages.astro';
+
+
+A message sent from an aircraft to an ATSU is known as an **downlink**. Depending on the [response attribute](#response-attributes) of a given message, an ATSU may or may not have to respond with one of the allowed [uplink](/spec/cpdlc/uplink) messages.
+
+
+## Response Attributes
+
+<table>
+    <thead>
+        <tr>
+            <th>Resp.</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: right">
+                <Badge text="Y" variant="danger" />
+            </td>
+            <td>
+                **Response Required** with any uplink message
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right">
+                <Badge text="N" variant="success" />
+            </td>
+            <td>
+                **Response Not Required**, and the message should be considered closed even though a response may be uplinked by the ATSU
+
+                :::caution[TODO]
+                The GOLD specification accomodates logical acknowledgements. Not sure if we want these.
+                :::
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+## List of Messages
+
+:::tip[Request for Comment]
+If a position report message type is desirable, we would need to work out which fields are necessary. I am unable to confirm the exact fields that are included in real-world position reports, but the following is likely needed at a minimum:
+
+<Messages
+    colors={{ "Y": "danger", "N": "success" }}
+    messages={[
+        { id: "DM48", resp: "N", str: "POSITION REPORT [time] [position] [altitude] [speed]" },
+    ]}
+/>
+
+Aircraft-specific documentation implies the presence of data on winds aloft, course offset, estimated time of arrival, and temperature. I would like to be able to corroborate this with other sources.
+:::
+
+<Messages
+    colors={{ "Y": "danger", "N": "success" }}
+    messages={[
+        { id: "DM0", resp: "N", str: "WILCO" },
+        { id: "DM1", resp: "N", str: "UNABLE" },
+        { id: "DM2", resp: "N", str: "STANDBY" },
+        { id: "DM3", resp: "N", str: "ROGER" },
+        { id: "DM4", resp: "N", str: "AFFIRM" },
+        { id: "DM5", resp: "N", str: "NEGATIVE" },
+        {},
+        { id: "DM6", resp: "Y", str: "REQUEST [altitude]" },
+        { id: "DM7", resp: "Y", str: "REQUEST BLOCK [altitude] TO [altitude]" },
+        { id: "DM9", resp: "Y", str: "REQUEST CLIMB TO [altitude]" },
+        { id: "DM10", resp: "Y", str: "REQUEST DESCENT TO [altitude]" },
+        { id: "DM11", resp: "Y", str: "AT [position] REQUEST CLIENT TO [altitude]" },
+        { id: "DM12", resp: "Y", str: "AT [position] REQUEST DESCENT TO [altitude]" },
+        { id: "DM13", resp: "Y", str: "AT TIME [time] REQUEST CLIMB TO [altitude]" },
+        { id: "DM14", resp: "Y", str: "AT TIME [time] REQUEST DESCENT TO [altitude]" },
+        { id: "DM15", resp: "Y", str: "REQUEST OFFSET [distance] [direction] OF ROUTE" },
+        { id: "DM18", resp: "Y", str: "REQUEST [speed]" },
+        { id: "DM20", resp: "Y", str: "REQUEST VOICE CONTACT" },
+        { id: "DM22", resp: "Y", str: "REQUEST DIRECT TO [position]" },
+        { id: "DM23", resp: "Y", str: "REQUEST [procedure]" },
+        { id: "DM24", resp: "Y", str: "REQUEST [route clearance]" },
+        { id: "DM25", resp: "Y", str: "REQUEST CLEARANCE" },
+        { id: "DM27", resp: "Y", str: "REQUEST WEATHER DEVIATION UP TO [distance] [direction] OF ROUTE" },
+        { id: "DM34", resp: "N", str: "PRESENT SPEED [speed]" },
+        { id: "DM38", resp: "N", str: "ASSIGNED ALTITUDE [altitude]" },
+        { id: "DM40", resp: "N", str: "ASSIGNED ROUTE [route clearance]" },
+        { id: "DM41", resp: "N", str: "BACK ON ROUTE" },
+        { id: "DM55", resp: "N", str: "PAN PAN PAN" },
+        { id: "DM56", resp: "N", str: "MAYDAY MAYDAY MAYDAY" },
+        { id: "DM57", resp: "N", str: "[time] OF FUEL REMAINING AND [number] ON BOARD" },
+        { id: "DM58", resp: "N", str: "CANCEL EMERGENCY" },
+        { id: "DM59", resp: "N", str: "DIVERTING TO [position] VIA [route clearance]" },
+        { id: "DM60", resp: "N", str: "OFFSETTING [distance] [direction] OF ROUTE" },
+        { id: "DM61", resp: "N", str: "DESCENDING TO [altitude]" },
+        { id: "DM62", resp: "N", str: "ERROR [text]" },
+        { id: "DM63", resp: "N", str: "NOT CURRENT DATA AUTHORITY" },
+        { id: "DM65", resp: "N", str: "DUE TO WEATHER" },
+        { id: "DM66", resp: "N", str: "DUE TO AIRCRAFT PERFORMANCE" },
+        { id: "DM77", resp: "N", str: "ASSIGNED BLOCK [altitude] TO [altitude]" },
+        { id: "DM80", resp: "N", str: "DEVIATING [distance] [direction] OF ROUTE" },
+        { id: "DM99", resp: "N", str: "CURRENT DATA AUTHORITY" },
+        { id: "DM107", resp: "N", str: "NOT AUTHORIZED NEXT DATA AUTHORITY" },
+        {},
+        { id: "DM67", resp: "N", str: "[text]" },
+        { id: "DM68", resp: "Y", str: "[text]" },
+    ]}
+/>
